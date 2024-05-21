@@ -7,16 +7,8 @@ const projectForm  = document.getElementById('new_project');
 const projectBase = document.querySelector('.projects')
 const todoBase = document.querySelector('.todos')
 
-const projects = [{name: 'defaykt', todos: [
-    {
-        task: 'cast fireball ☄️☄️☄️',
-        completed: true
-    },
-    
-]}];
-
-
-// const projects = JSON.parse(localStorage.getItem('projects'))
+const storage = localStorage.getItem('projects');
+const projects = storage ? JSON.parse(storage) : [];
 
 
 addBtn.addEventListener('click', () => {
@@ -31,33 +23,51 @@ closeModal.addEventListener('click', () => {
 projectForm.addEventListener('submit', (x) => {
     x.preventDefault();
     addProject();
-    updateProjects(projects);
+    updateProjects();
     projectModal.close();
 })
 
 function addProject() {
     const projectName = document.getElementById('project_name').value
     projects.push({name: projectName, todos: []})
+    storeProjects(projects)
     document.getElementById('project_name').value = '';
 }
 
 
 function updateProjects() {
     projectBase.innerHTML = '';
+    todoBase.innerHTML = '';
 
-    projects.forEach(project => {
+    projects.forEach((project, index) => {
         const projectItem = document.createElement('div');
+        const projectBtn = document.createElement('button');
+
+        
+        projectBtn.textContent = '💀'
+
         projectItem.classList.add("project");
         projectItem.textContent = project.name;
+        projectItem.appendChild(projectBtn)
         projectBase.appendChild(projectItem);
 
-        projectItem.addEventListener('click', () => {
-            viewTodos(project)
+        projectBtn.addEventListener('click', () => {
+            projects.splice(index, 1)
+            storeProjects(projects)
+            updateProjects()
+            todoBase.innerHTML = '';
         })
+
+        projectItem.addEventListener('click', () => {
+                viewTodos(project)
+        })
+
     });
 }
 
 function viewTodos(project) {
+    if (!projects.includes(project)) return 
+
     todoBase.innerHTML = '';
 
     const todoForm = document.createElement('form');
@@ -86,12 +96,12 @@ function viewTodos(project) {
     todoBase.appendChild(todoList)
 
     if(project.todos) {
-        project.todos.forEach(todo => {
+        project.todos.forEach((todo, index) => {
             const todoEl = document.createElement('li');
             const removeTodo = document.createElement('button');
-            const todoIndex = project.todos.findIndex(i => i == todo);
+
             
-            removeTodo.textContent = '🔥';
+            removeTodo.textContent = '💀';
             todoEl.textContent = todo.task;
             if (todo.completed) todoEl.classList.add('completed');
 
@@ -102,16 +112,17 @@ function viewTodos(project) {
             
             removeTodo.addEventListener('click', () => {
                 todoEl.remove()
-                project.todos.splice(todoIndex, 1);
+                project.todos.splice(index, 1);
 
-
+                storeProjects(projects)
             })
             
             todoEl.addEventListener('click', () => {
                 todoEl.classList.toggle('completed')
-                if (project.todos[todoIndex]){
-                    project.todos[todoIndex].completed = todoEl.classList.contains('completed')
+                if (project.todos[index]){
+                    project.todos[index].completed = todoEl.classList.contains('completed')
                 }
+                storeProjects(projects)
             })
             
         })
@@ -130,9 +141,11 @@ function viewTodos(project) {
 function addTodo(project) {
     const todoTask = todo_input.value;
     project.todos.push({task: todoTask, completed: false})
+    storeProjects(projects)
 }
 
+function storeProjects(projects) {
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
 
-
-updateProjects(projects);
 
