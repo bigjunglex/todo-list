@@ -148,4 +148,4 @@ function storeProjects(projects) {
     localStorage.setItem('projects', JSON.stringify(projects));
 }
 
-
+updateProjects(projects);
