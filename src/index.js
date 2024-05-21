@@ -149,3 +149,4 @@ function storeProjects(projects) {
 }
 
 
+updateProjects(projects);
