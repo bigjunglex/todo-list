@@ -116,6 +116,11 @@
     transform: scale(1.03);
 }
 
+.completed {
+    text-decoration: line-through;
+}
+
+
 
 @media (max-width: 600px) {
     .content {
