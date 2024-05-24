@@ -1,4 +1,5 @@
 import "./style.css";
+import { storeProjects } from './storage.js';
 
 const addBtn = document.querySelector('.add_project');
 const projectModal = document.querySelector('#add_project_modal');
@@ -11,14 +12,8 @@ const storage = localStorage.getItem('projects');
 const projects = storage ? JSON.parse(storage) : [];
 
 
-addBtn.addEventListener('click', () => {
-    projectModal.show();
-
-})
-
-closeModal.addEventListener('click', () => {
-    projectModal.close();
-})
+addBtn.addEventListener('click', () => projectModal.show())
+closeModal.addEventListener('click', () => projectModal.close())
 
 projectForm.addEventListener('submit', (x) => {
     x.preventDefault();
@@ -144,9 +139,6 @@ function addTodo(project) {
     storeProjects(projects)
 }
 
-function storeProjects(projects) {
-    localStorage.setItem('projects', JSON.stringify(projects));
-}
 
 
 updateProjects(projects);
