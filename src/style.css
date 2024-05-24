@@ -52,21 +52,47 @@
 
 #add_project_modal {
     position: absolute;
-    top: 40%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.25);
-    width: 50%;
-    height: 380px;
-    padding: 20px 30px;
     background: #66b582;
+    padding: 20px 10px;
+
     z-index: 1;
-    box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
+    box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
     border-radius: 10px;
-    transition: top 0ms ease-in-out 200ms,
-                opacity 200ms ease-in-out 0ms,
-                transform 200ms ease-in-out 0ms;
-    
+
 }
+
+.closeBtn {
+    height: 3em;
+    width: 3em;
+    font-size: 10px;
+    align-self: flex-end;
+}
+
+.dialog_wrapper {
+    height: 100%;
+    display:  flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+}
+
+
+
+#new_project {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#todo_input {
+    cursor: pointer;
+
+}
+
 
 .todos,
 .projects {
@@ -88,8 +114,8 @@
     
 }
 
-.project,
-.todo {
+.project {
+
 
     display: flex;
     justify-content: space-between;
@@ -107,8 +133,65 @@
     color: #044c38;
     font-size: 2em;
     
-    width: 80%;
+    width: 300px;
+
     height: 2rem;
+
+}
+
+.project span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.project button {
+    cursor: pointer;
+    padding: 0 5px;
+    font-size: 18px;
+}
+
+.todos ul {
+    width: 100%;
+    list-style-type: "👹";
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:  10px;
+    padding-left: 15px;
+
+}
+
+.todos input {
+    border: solid;
+    border-width: 0px 0px 0px 3px;
+    box-shadow: 5px 5px 5px rgb(4, 54, 8);
+    border-color: white white white rgb(146, 116, 17);
+    color: #044c38;
+    font-size: 2em;
+    
+    width: 300px;
+    max-width: 80%;
+    height: 2rem;
+}
+
+.todos form button {
+    cursor: pointer;
+    padding: 0 5px;
+    font-size: 18px;
+    box-shadow: 5px 5px 5px rgb(4, 54, 8);
+}
+
+li {
+    width: 100%;
+    padding-left:  10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+li button {
+    margin-left: 10px;
+    font-size: 20px;
 }
 
 .project:hover,
@@ -120,6 +203,10 @@
     text-decoration: line-through;
 }
 
+.todos form {
+    display:  flex;
+    gap: 3px;
+}
 
 
 @media (max-width: 600px) {

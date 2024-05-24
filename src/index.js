@@ -27,6 +27,8 @@ projectForm.addEventListener('submit', (x) => {
     projectModal.close();
 })
 
+
+
 function addProject() {
     const projectName = document.getElementById('project_name').value
     projects.push({name: projectName, todos: []})
@@ -42,12 +44,13 @@ function updateProjects() {
     projects.forEach((project, index) => {
         const projectItem = document.createElement('div');
         const projectBtn = document.createElement('button');
-
+        const projectSpan = document.createElement('span')
         
         projectBtn.textContent = '💀'
 
         projectItem.classList.add("project");
-        projectItem.textContent = project.name;
+        projectSpan.textContent = project.name;
+        projectItem.appendChild(projectSpan)
         projectItem.appendChild(projectBtn)
         projectBase.appendChild(projectItem);
 
